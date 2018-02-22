@@ -118,9 +118,11 @@ class Pmf():
 
             p = np.dot(U,V.T)
             epoch = 0
-            # l_error = 0
-            # d_error = 0
+            #l_error = 0
+            #d_error = 0
 
+            # this is the meat
+            # need to speed this shit up, look into ctypes
             # do a number of epochs for each feature
             while epoch < self._max_epoch:
                 error = np.subtract(self._x, p)
@@ -146,8 +148,12 @@ class Pmf():
                 #d_error = abs(l_error - n_error)
 
                 #l_error = n_error
-                epoch += 1
-                print("Feature: {}/10, epoch: {}/100".format(f+1, epoch) )
+                epoch += 1 # update epoch
+
+                # print out current feature and epoch
+                print("Feature: {}/{}, epoch: {}/{}".format(f+1, self._k, epoch, self._max_epoch) )
+        
+        p = np.around(p,2) # round to two decimals
         self._P = p
         return self
 
